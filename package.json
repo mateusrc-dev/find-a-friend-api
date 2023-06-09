@@ -1,0 +1,23 @@
+{
+  "name": "03-desafio-find-a-friend-api",
+  "version": "1.0.0",
+  "description": "[ ] Deve ser possível cadastrar um pet\r [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade\r [ ] Deve ser possível filtrar pets por suas características\r [ ] Deve ser possível visualizar detalhes de um pet para adoção\r [ ] Deve ser possível se cadastrar como uma ORG\r [ ] Deve ser possível realizar login como uma ORG",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "fastify": "^4.17.0"
+  }
+}
