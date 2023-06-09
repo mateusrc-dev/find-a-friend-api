@@ -1,3 +1,5 @@
+# Find a Friend API - projeto em produção - desafio que faz parte da trilha NodeJs do Ignite/Rocketseat
+
 ### Regras da aplicação
 
 - [ ] Deve ser possível cadastrar um pet 
