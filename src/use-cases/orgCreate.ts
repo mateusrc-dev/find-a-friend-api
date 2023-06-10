@@ -1,14 +1,19 @@
 import { OrgsRepository } from '@/repositories/orgs-repository'
 import { hash } from 'bcryptjs'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
+import { ORG } from '@prisma/client'
 
-interface UseCaseRequest {
+interface OrgCreateUseCaseRequest {
   address: string
   whatsApp: string
   CEP: string
   email: string
   name: string
   password: string
+}
+
+interface OrgCreateUseCaseResponse {
+  org: ORG
 }
 
 export class CreateOrgUseCase {
@@ -21,7 +26,7 @@ export class CreateOrgUseCase {
     email,
     name,
     password,
-  }: UseCaseRequest) {
+  }: OrgCreateUseCaseRequest): Promise<OrgCreateUseCaseResponse> {
     const password_hash = await hash(password, 6)
     const orgWithSameEmail = await this.orgsRepository.orgWithSameEmail(email)
 
@@ -29,7 +34,7 @@ export class CreateOrgUseCase {
       throw new OrgAlreadyExistsError()
     }
 
-    await this.orgsRepository.create({
+    const org = await this.orgsRepository.create({
       address,
       whatsApp,
       CEP,
@@ -37,5 +42,7 @@ export class CreateOrgUseCase {
       name,
       password: password_hash,
     })
+
+    return { org }
   }
 }
