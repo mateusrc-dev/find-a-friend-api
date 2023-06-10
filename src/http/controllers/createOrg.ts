@@ -1,5 +1,5 @@
-import { PrismaOrgsRepository } from '@/repositories/prisma-org-repository'
-import { CreateOrgUseCase } from '@/services/orgCreate'
+import { PrismaOrgsRepository } from '@/repositories/prisma/prisma-org-repository'
+import { CreateOrgUseCase } from '@/use-cases/orgCreate'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
