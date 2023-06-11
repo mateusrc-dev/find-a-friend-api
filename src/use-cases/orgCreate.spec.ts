@@ -54,7 +54,7 @@ describe('Create a ORG Use Case', () => {
       password: '123456',
     })
 
-    expect(() =>
+    await expect(() =>
       createOrgUseCase.execute({
         address: 'Rua linda',
         whatsApp: '0869666666',
