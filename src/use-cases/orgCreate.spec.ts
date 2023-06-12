@@ -1,15 +1,20 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { CreateOrgUseCase } from './orgCreate'
 import { compare } from 'bcryptjs'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
 
-describe('Create a ORG Use Case', () => {
-  it('should be able create a new org', async () => {
-    const orgsRepository = new InMemoryOrgsRepository()
-    const createOrgUseCase = new CreateOrgUseCase(orgsRepository)
+let orgsRepository: InMemoryOrgsRepository
+let sut: CreateOrgUseCase
 
-    const { org } = await createOrgUseCase.execute({
+describe('Create a ORG Use Case', () => {
+  beforeEach(() => {
+    orgsRepository = new InMemoryOrgsRepository()
+    sut = new CreateOrgUseCase(orgsRepository)
+  })
+
+  it('should be able create a new org', async () => {
+    const { org } = await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '123123123',
@@ -22,10 +27,7 @@ describe('Create a ORG Use Case', () => {
   })
 
   it('it should be possible to create a password hash when creating a new org', async () => {
-    const orgsRepository = new InMemoryOrgsRepository()
-    const createOrgUseCase = new CreateOrgUseCase(orgsRepository)
-
-    const { org } = await createOrgUseCase.execute({
+    const { org } = await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '123123123',
@@ -40,12 +42,9 @@ describe('Create a ORG Use Case', () => {
   })
 
   it('should not be able to create a new org with same email twice', async () => {
-    const orgsRepository = new InMemoryOrgsRepository()
-    const createOrgUseCase = new CreateOrgUseCase(orgsRepository)
-
     const email = 'mateusraimundo@email.com'
 
-    await createOrgUseCase.execute({
+    await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '123123123',
@@ -55,7 +54,7 @@ describe('Create a ORG Use Case', () => {
     })
 
     await expect(() =>
-      createOrgUseCase.execute({
+      sut.execute({
         address: 'Rua linda',
         whatsApp: '0869666666',
         CEP: '123123123',
