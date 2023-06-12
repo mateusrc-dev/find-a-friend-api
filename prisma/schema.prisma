@@ -10,12 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ORG {
+model Org {
   id       String @id @default(uuid())
   name     String
   email    String @unique
   CEP      String
   address  String
+  city     String
   whatsApp String
   password String
   Pet      Pet[]
@@ -34,7 +35,7 @@ model Pet {
   environment       String
   photos            String[]
   requirements      String[]
-  org               ORG      @relation(fields: [org_id], references: [id])
+  org               Org      @relation(fields: [org_id], references: [id])
   org_id            String
 
   @@map("pets")

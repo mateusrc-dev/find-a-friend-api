@@ -1,9 +1,8 @@
-import { ORG, Prisma } from '@prisma/client'
+import { Org, Prisma } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
-// import { randomUUID } from 'crypto'
 
 export class InMemoryOrgsRepository implements OrgsRepository {
-  public items: ORG[] = []
+  public items: Org[] = []
 
   async orgWithSameEmail(email: string) {
     const org = this.items.find((item) => item.email === email)
@@ -15,12 +14,13 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     return org
   }
 
-  async create(data: Prisma.ORGCreateInput) {
+  async create(data: Prisma.OrgCreateInput) {
     const org = {
       id: 'org-1',
       address: data.address,
       whatsApp: data.whatsApp,
       CEP: data.CEP,
+      city: data.city,
       email: data.email,
       name: data.name,
       password: data.password,

@@ -17,10 +17,11 @@ describe('Authenticate Use Case', () => {
     await orgsRepository.create({
       address: 'Rua linda',
       whatsApp: '0869666666',
-      CEP: '123123123',
+      CEP: '64001250',
       email: 'mateus@email.com',
       name: 'Mateus',
       password: await hash('123456', 6),
+      city: 'Teresina',
     })
 
     const { org } = await sut.execute({
@@ -39,6 +40,7 @@ describe('Authenticate Use Case', () => {
       email: 'mateus@email.com',
       name: 'Mateus',
       password: '123456',
+      city: 'Teresina',
     })
 
     await expect(() =>

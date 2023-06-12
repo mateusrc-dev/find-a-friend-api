@@ -17,7 +17,7 @@ describe('Create a ORG Use Case', () => {
     const { org } = await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
-      CEP: '123123123',
+      CEP: '64001250',
       email: 'mateus@email.com',
       name: 'Mateus',
       password: '123456',
@@ -30,7 +30,7 @@ describe('Create a ORG Use Case', () => {
     const { org } = await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
-      CEP: '123123123',
+      CEP: '64001250',
       email: 'mateus@email.com',
       name: 'Mateus',
       password: '123456',
@@ -47,7 +47,7 @@ describe('Create a ORG Use Case', () => {
     await sut.execute({
       address: 'Rua linda',
       whatsApp: '0869666666',
-      CEP: '123123123',
+      CEP: '64001250',
       email,
       name: 'Mateus',
       password: '123456',
@@ -57,7 +57,7 @@ describe('Create a ORG Use Case', () => {
       sut.execute({
         address: 'Rua linda',
         whatsApp: '0869666666',
-        CEP: '123123123',
+        CEP: '64001250',
         email,
         name: 'Mateus',
         password: '123456',

@@ -1,7 +1,7 @@
 import { OrgsRepository } from '@/repositories/orgs-repository'
 import { hash } from 'bcryptjs'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
-import { ORG } from '@prisma/client'
+import { Org } from '@prisma/client'
 
 interface OrgCreateUseCaseRequest {
   address: string
@@ -13,7 +13,7 @@ interface OrgCreateUseCaseRequest {
 }
 
 interface OrgCreateUseCaseResponse {
-  org: ORG
+  org: Org
 }
 
 export class CreateOrgUseCase {
@@ -34,12 +34,23 @@ export class CreateOrgUseCase {
       throw new OrgAlreadyExistsError()
     }
 
+    const value = CEP.replace(/[^0-9]+/, '')
+    const url = `https://viacep.com.br/ws/${value}/json/`
+    let city
+
+    await fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        city = json.localidade
+      })
+
     const org = await this.orgsRepository.create({
       address,
       whatsApp,
       CEP,
       email,
       name,
+      city,
       password: password_hash,
     })
 
