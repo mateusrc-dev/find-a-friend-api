@@ -1,11 +1,12 @@
-import { /* Pet, */ Prisma } from '@prisma/client'
+import { Pet } from '@prisma/client'
+import { PetsRepository } from '../pets-repository'
 // import { PetsRepository } from '../pets-repository'
 
-export class InMemoryPetsRepository {
-  public items: Prisma.PetUncheckedCreateInput[] = []
+export class InMemoryPetsRepository implements PetsRepository {
+  public items: Pet[] = []
 
-  async create(data: Prisma.PetUncheckedCreateInput) {
-    const pet = {
+  async create(data: Pet) {
+    const pet: Pet = {
       id: 'pet-1',
       name: data.name,
       description: data.description,

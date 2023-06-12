@@ -5,7 +5,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function createPet(request: FastifyRequest, reply: FastifyReply) {
-  const petCreateSchema = z.object({
+  const petCreateBodySchema = z.object({
     name: z.string(),
     description: z.string(),
     age: z.string(),
@@ -29,7 +29,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     photos,
     requirements,
     size,
-  } = petCreateSchema.parse(request.body)
+  } = petCreateBodySchema.parse(request.body)
 
   const prismaPetsRepository = new PrismaPetsRepository()
   const createPetUseCase = new CreatePetUseCase(prismaPetsRepository)
