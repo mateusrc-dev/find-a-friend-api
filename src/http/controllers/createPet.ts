@@ -1,6 +1,5 @@
-import { PrismaPetsRepository } from '@/repositories/prisma/prisma-pet-repository'
 import { OrgAlreadyExistsError } from '@/use-cases/errors/org-already-exists-error'
-import { CreatePetUseCase } from '@/use-cases/petCreate'
+import { makePetCreateUseCase } from '@/use-cases/factories/make-petCreate-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -31,8 +30,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     size,
   } = petCreateBodySchema.parse(request.body)
 
-  const prismaPetsRepository = new PrismaPetsRepository()
-  const createPetUseCase = new CreatePetUseCase(prismaPetsRepository)
+  const createPetUseCase = makePetCreateUseCase()
 
   try {
     await createPetUseCase.execute({
