@@ -9,12 +9,26 @@ export class PrismaOrgsRepository implements OrgsRepository {
     return org
   }
 
+  async findOrgByCity(city: string) {
+    const org = await prisma.org.findFirst({
+      where: {
+        city,
+      },
+    })
+
+    if (!org) {
+      return null
+    }
+
+    return org
+  }
+
   async orgWithSameEmail(email: string) {
-    const ORG = await prisma.org.findUnique({
+    const org = await prisma.org.findUnique({
       where: {
         email,
       },
     })
-    return ORG
+    return org
   }
 }

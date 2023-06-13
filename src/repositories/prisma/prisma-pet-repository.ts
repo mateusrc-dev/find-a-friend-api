@@ -20,4 +20,42 @@ export class PrismaPetsRepository implements PetsRepository {
 
     return pet
   }
+
+  async filterPetsByOrgIdAndCharacteristics(
+    org_id: string,
+    page: number,
+    age: string,
+    size: string,
+    energyLevel: string,
+    independenceLevel: string,
+    environment: string,
+  ) {
+    const pets: Pet[] | null = await prisma.pet.findMany({
+      where: {
+        org: {
+          id: org_id,
+        },
+        age: {
+          contains: age,
+        },
+        size: {
+          contains: size,
+        },
+        energyLevel: {
+          contains: energyLevel,
+        },
+        independenceLevel: {
+          contains: independenceLevel,
+        },
+        environment: {
+          contains: environment,
+        },
+      },
+
+      take: 10,
+      skip: (page - 1) * 10,
+    })
+
+    return pets
+  }
 }

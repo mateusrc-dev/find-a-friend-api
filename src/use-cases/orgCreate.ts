@@ -36,7 +36,7 @@ export class CreateOrgUseCase {
 
     const value = CEP.replace(/[^0-9]+/, '')
     const url = `https://viacep.com.br/ws/${value}/json/`
-    let city
+    let city = ''
 
     await fetch(url)
       .then((response) => response.json())

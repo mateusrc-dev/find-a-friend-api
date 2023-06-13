@@ -1,27 +1,60 @@
 import { Pet } from '@prisma/client'
 import { PetsRepository } from '@/repositories/pets-repository'
 import { PetNotFoundError } from './errors/pet-not-found-error'
+import { OrgsRepository } from '@/repositories/orgs-repository'
+import { OrgNotFoundError } from './errors/org-not-found-error'
 
-interface GetPetDetailsUseCaseRequest {
-  petId: string
+interface GetPetsUseCaseRequest {
+  city: string
+  page: number
+  age?: string
+  size?: string
+  energyLevel?: string
+  independenceLevel?: string
+  environment?: string
 }
 
-interface GetPetDetailsUseCaseResponse {
-  pet: Pet
+interface GetPetsUseCaseResponse {
+  pets: Pet[]
 }
 
-export class GetPetDetailsUseCase {
-  constructor(private petsRepository: PetsRepository) {}
+export class GetPetsUseCase {
+  constructor(
+    private petsRepository: PetsRepository,
+    private orgsRepository: OrgsRepository,
+  ) {}
 
   async execute({
-    petId,
-  }: GetPetDetailsUseCaseRequest): Promise<GetPetDetailsUseCaseResponse> {
-    const pet = await this.petsRepository.findPetById(petId)
+    city,
+    page,
+    size,
+    age,
+    energyLevel,
+    environment,
+    independenceLevel,
+  }: GetPetsUseCaseRequest): Promise<GetPetsUseCaseResponse> {
+    const org = await this.orgsRepository.findOrgByCity(city)
 
-    if (!pet) {
+    if (!org) {
+      throw new OrgNotFoundError()
+    }
+
+    const org_id = org?.id
+
+    const pets = await this.petsRepository.filterPetsByOrgIdAndCharacteristics(
+      org_id,
+      page,
+      age,
+      size,
+      energyLevel,
+      independenceLevel,
+      environment,
+    )
+
+    if (!pets) {
       throw new PetNotFoundError()
     }
 
-    return { pet }
+    return { pets }
   }
 }

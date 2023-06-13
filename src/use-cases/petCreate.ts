@@ -4,7 +4,7 @@ import { PetsRepository } from '@/repositories/pets-repository'
 interface PetCreateUseCaseRequest {
   name: string
   description: string
-  age: string
+  age: 'SMALL' | 'AVERAGE' | 'BIG'
   size: 'SMALL' | 'AVERAGE' | 'BIG'
   energyLevel: 'LOW' | 'AVERAGE' | 'HIGH'
   independenceLevel: 'LOW' | 'AVERAGE' | 'HIGH'

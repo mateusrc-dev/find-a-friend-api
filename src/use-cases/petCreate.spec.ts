@@ -15,7 +15,7 @@ describe('Create a Pet Use Case', () => {
     const { pet } = await sut.execute({
       name: 'Junin',
       description: 'Um cachorro fofo dos pelos loiros e pele branquinha',
-      age: '5',
+      age: 'SMALL',
       size: 'BIG',
       energyLevel: 'HIGH',
       independenceLevel: 'AVERAGE',

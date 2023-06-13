@@ -15,6 +15,31 @@ export class InMemoryPetsRepository implements PetsRepository {
     return pet
   }
 
+  async filterPetsByOrgIdAndCharacteristics(
+    org_id: string,
+    page: number,
+    age?: string,
+    size?: string,
+    energyLevel?: string,
+    independenceLevel?: string,
+    environment?: string,
+  ) {
+    const filteredPets = this.items
+      .filter(
+        (item) =>
+          item.org_id &&
+          item.org_id.includes(org_id) &&
+          item.age.includes(age || '') &&
+          item.size.includes(size || '') &&
+          item.energyLevel.includes(energyLevel || '') &&
+          item.independenceLevel.includes(independenceLevel || '') &&
+          item.environment.includes(environment || ''),
+      )
+      .slice((page - 1) * 10, page * 10)
+
+    return filteredPets
+  }
+
   async create(data: Pet) {
     const pet: Pet = {
       id: 'pet-1',

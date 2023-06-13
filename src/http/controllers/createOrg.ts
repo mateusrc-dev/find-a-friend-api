@@ -29,7 +29,7 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
     })
   } catch (err) {
     if (err instanceof OrgAlreadyExistsError) {
-      return reply.status(409).send({ message: err.message })
+      return reply.status(400).send({ message: err.message })
     }
 
     throw err
