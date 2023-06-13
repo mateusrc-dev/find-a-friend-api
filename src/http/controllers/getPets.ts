@@ -1,6 +1,6 @@
 import { OrgNotFoundError } from '@/use-cases/errors/org-not-found-error'
 import { PetNotFoundError } from '@/use-cases/errors/pet-not-found-error'
-import { makeGetPetsUseCase } from '@/use-cases/factories/make-petCreate-use-case copy'
+import { makeGetPetsUseCase } from '@/use-cases/factories/make-get-pets-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

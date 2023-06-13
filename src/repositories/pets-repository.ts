@@ -12,4 +12,5 @@ export interface PetsRepository {
     independenceLevel: string | undefined,
     environment: string | undefined,
   ): Promise<Pet[] | null>
+  petDelete(petId: string): Promise<Pet | null | undefined>
 }
