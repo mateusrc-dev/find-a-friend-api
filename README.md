@@ -22,5 +22,5 @@
 
 - [x] A senha da ORG precisa estar criptografada 
 - [x] Os dados da aplicação precisam estar persistidos em um banco de dados PostgreSQL 
-- [x] Todas as listas de dados precisam estar paginados com 10 items por página 
+- [x] Todas as listas de dados precisam estar paginados com 10 itens por página 
 - [ ] A ORG precisa ser identificada com um JWT (JSON Web Token)
