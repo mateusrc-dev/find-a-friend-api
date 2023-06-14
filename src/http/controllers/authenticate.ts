@@ -17,10 +17,14 @@ export async function authenticate(
   const authenticateUseCase = makeAuthenticateUseCase()
 
   try {
-    await authenticateUseCase.execute({
+    const { org } = await authenticateUseCase.execute({
       email,
       password,
     })
+
+    const token = await reply.jwtSign({}, { sign: { sub: org.id } })
+
+    return reply.status(200).send({ token })
   } catch (err) {
     if (err instanceof InvalidCredentialError) {
       return reply.status(409).send({ message: err.message })
@@ -28,6 +32,4 @@ export async function authenticate(
 
     throw err
   }
-
-  return reply.status(201).send()
 }

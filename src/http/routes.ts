@@ -5,10 +5,14 @@ import { authenticate } from './controllers/authenticate'
 import { getPets } from './controllers/getPets'
 import { deletePet } from './controllers/deletePet'
 import { getPetDetails } from './controllers/getPetDetails'
+import { profile } from './controllers/profile'
+import { verifyJWT } from './middlewares/verify-jwt'
 
-export async function orgsRoutes(app: FastifyInstance) {
+export async function AppRoutes(app: FastifyInstance) {
   app.post('/orgs', createOrg)
   app.post('/sessions', authenticate)
+  app.get('/org', { onRequest: [verifyJWT] }, profile)
+
   app.post('/pets', createPet)
   app.get('/getPets', getPets)
   app.get('/getPetDetails', getPetDetails)
