@@ -81,4 +81,48 @@ describe('Get Pets Use Case', () => {
     expect(pets).toHaveLength(1)
     expect(pets).toEqual([expect.objectContaining({ name: 'Junin' })])
   })
+
+  it('should be able to fetch paginated check-in history', async () => {
+    await orgsRepository.create({
+      id: 'org-1',
+      address: 'Rua linda',
+      whatsApp: '0869666666',
+      CEP: '64001250',
+      city: 'Teresina',
+      email: 'mateus@email.com',
+      name: 'Mateus',
+      password: '123456',
+    })
+
+    for (let i = 1; i <= 12; i++) {
+      await petsRepository.create({
+        id: `pet-${i}`,
+        name: 'Junin',
+        description: 'Um cachorro fofo dos pelos loiros e pele branquinha',
+        age: '5',
+        size: 'BIG',
+        energyLevel: 'HIGH',
+        independenceLevel: 'AVERAGE',
+        environment: 'WIDE',
+        photos: ['https://github.com/mateusrc-dev.png'],
+        requirements: [
+          'ele gosta de comer muito',
+          'tem q ser muito paciente',
+          'ele gosta de ambientes muito espaçosos e é muito folgado',
+        ],
+        org_id: 'org-1',
+      })
+    }
+
+    const { pets } = await sut.execute({
+      city: 'Teresina',
+      page: 2,
+    })
+
+    expect(pets).toHaveLength(2)
+    expect(pets).toEqual([
+      expect.objectContaining({ id: 'pet-11' }),
+      expect.objectContaining({ id: 'pet-12' }),
+    ])
+  })
 })

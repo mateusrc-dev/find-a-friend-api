@@ -55,7 +55,7 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async create(data: Pet) {
     const pet: Pet = {
-      id: 'pet-1',
+      id: data.id ? data.id : 'pet-1',
       name: data.name,
       description: data.description,
       age: data.age,
