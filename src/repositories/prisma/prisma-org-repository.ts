@@ -9,6 +9,20 @@ export class PrismaOrgsRepository implements OrgsRepository {
     return org
   }
 
+  async findOrgById(org_id: string) {
+    const org = await prisma.org.findUnique({
+      where: {
+        id: org_id,
+      },
+    })
+
+    if (!org) {
+      return null
+    }
+
+    return org
+  }
+
   async findOrgByCity(city: string) {
     const org = await prisma.org.findFirst({
       where: {

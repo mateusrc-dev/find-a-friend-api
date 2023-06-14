@@ -4,10 +4,10 @@ import { PrismaOrgsRepository } from '@/repositories/prisma/prisma-org-repositor
 
 export function makeGetPetsUseCase() {
   const prismaPetsRepository = new PrismaPetsRepository()
-  const prismaOrggRepository = new PrismaOrgsRepository()
+  const prismaOrgRepository = new PrismaOrgsRepository()
   const getPetsUseCase = new GetPetsUseCase(
     prismaPetsRepository,
-    prismaOrggRepository,
+    prismaOrgRepository,
   )
 
   return getPetsUseCase
