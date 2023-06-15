@@ -24,17 +24,17 @@ export class PrismaOrgsRepository implements OrgsRepository {
   }
 
   async findOrgByCity(city: string) {
-    const org = await prisma.org.findFirst({
+    const orgs = await prisma.org.findMany({
       where: {
         city,
       },
     })
 
-    if (!org) {
+    if (!orgs) {
       return null
     }
 
-    return org
+    return orgs
   }
 
   async orgWithSameEmail(email: string) {

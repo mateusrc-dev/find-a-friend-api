@@ -15,13 +15,13 @@ export class InMemoryOrgsRepository implements OrgsRepository {
   }
 
   async findOrgByCity(city: string) {
-    const org = this.items.find((item) => item.city === city)
+    const orgs = this.items.filter((item) => item.city === city)
 
     if (!org) {
       return null
     }
 
-    return org
+    return orgs
   }
 
   async findOrgById(org_id: string) {

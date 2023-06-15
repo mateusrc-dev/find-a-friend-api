@@ -20,7 +20,7 @@ export async function getPetDetails(
       petId,
     })
 
-    return reply.status(201).send(petDetails)
+    return reply.status(200).send(petDetails)
   } catch (err) {
     if (err instanceof PetNotFoundError) {
       return reply.status(400).send({ message: err.message })

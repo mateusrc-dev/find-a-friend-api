@@ -28,7 +28,7 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
       whatsApp,
     })
 
-    return reply.status(201).send({ org })
+    return reply.status(201).send(org)
   } catch (err) {
     if (err instanceof OrgAlreadyExistsError) {
       return reply.status(400).send({ message: err.message })

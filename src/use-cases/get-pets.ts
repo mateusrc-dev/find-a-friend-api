@@ -33,25 +33,32 @@ export class GetPetsUseCase {
     environment,
     independenceLevel,
   }: GetPetsUseCaseRequest): Promise<GetPetsUseCaseResponse> {
-    const org = await this.orgsRepository.findOrgByCity(city)
+    const orgs = await this.orgsRepository.findOrgByCity(city)
 
-    if (!org) {
+    if (!orgs) {
       throw new OrgNotFoundError()
     }
 
-    const org_id = org?.id
+    let pets: Pet[] = []
+    for (let i = 1; i < orgs.length; i++) {
+      const org_id = orgs[i].id
+      const findPets: Pet[] | null =
+        await this.petsRepository.filterPetsByOrgIdAndCharacteristics(
+          org_id,
+          page,
+          age,
+          size,
+          energyLevel,
+          independenceLevel,
+          environment,
+        )
 
-    const pets = await this.petsRepository.filterPetsByOrgIdAndCharacteristics(
-      org_id,
-      page,
-      age,
-      size,
-      energyLevel,
-      independenceLevel,
-      environment,
-    )
+      if (findPets) {
+        pets = [...pets, ...findPets]
+      }
+    }
 
-    if (!pets) {
+    if (pets?.length === 0) {
       throw new PetNotFoundError()
     }
 

@@ -32,7 +32,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
   const createPetUseCase = makePetCreateUseCase()
 
   try {
-    await createPetUseCase.execute({
+    const pet = await createPetUseCase.execute({
       age,
       description,
       energyLevel,
@@ -44,10 +44,10 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
       requirements,
       size,
     })
+
+    return reply.status(201).send(pet)
   } catch (err) {
     console.log(err)
     throw err
   }
-
-  return reply.status(201).send()
 }

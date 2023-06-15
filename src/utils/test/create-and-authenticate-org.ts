@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import request from 'supertest'
 
 export async function createAndAuthenticateOrg(app: FastifyInstance) {
-  await request(app.server).post('/orgCreate').send({
+  const org = await request(app.server).post('/orgCreate').send({
     address: 'Rua linda',
     whatsApp: '0869666666',
     CEP: '64001250',
@@ -17,5 +17,6 @@ export async function createAndAuthenticateOrg(app: FastifyInstance) {
   })
 
   const { token } = authResponse.body
-  return { token }
+  const { id } = org.body.org
+  return { token, id }
 }

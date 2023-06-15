@@ -3,7 +3,7 @@ import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateOrg } from '@/utils/test/create-and-authenticate-org'
 
-describe('Create Pet (e2e)', () => {
+describe('Get Pet Details (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,10 +12,10 @@ describe('Create Pet (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to create new pet', async () => {
+  it('should be able to get pet details', async () => {
     const { token, id } = await createAndAuthenticateOrg(app)
 
-    const response = await request(app.server)
+    const pet = await request(app.server)
       .post('/pets')
       .set('Authorization', `Bearer ${token}`)
       .send({
@@ -35,6 +35,14 @@ describe('Create Pet (e2e)', () => {
         org_id: id,
       })
 
-    expect(response.statusCode).toEqual(201)
+    const response = await request(app.server)
+      .get(`/getPetDetails/${pet.body.pet.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send()
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body.pet).toEqual(
+      expect.objectContaining({ name: 'Junin' }),
+    )
   })
 })
