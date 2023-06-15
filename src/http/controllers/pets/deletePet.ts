@@ -4,11 +4,11 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function deletePet(request: FastifyRequest, reply: FastifyReply) {
-  const petDeleteBodySchema = z.object({
-    petId: z.string(),
+  const petDeleteParamsSchema = z.object({
+    petId: z.string().uuid(),
   })
 
-  const { petId } = petDeleteBodySchema.parse(request.body)
+  const { petId } = petDeleteParamsSchema.parse(request.params)
 
   const deletePetUseCase = makePetDeleteUseCase()
 

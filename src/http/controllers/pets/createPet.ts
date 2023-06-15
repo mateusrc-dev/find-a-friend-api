@@ -1,4 +1,3 @@
-import { OrgAlreadyExistsError } from '@/use-cases/errors/org-already-exists-error'
 import { makePetCreateUseCase } from '@/use-cases/factories/make-petCreate-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -46,10 +45,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
       size,
     })
   } catch (err) {
-    if (err instanceof OrgAlreadyExistsError) {
-      return reply.status(409).send({ message: err.message })
-    }
-
+    console.log(err)
     throw err
   }
 

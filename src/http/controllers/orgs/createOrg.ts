@@ -19,7 +19,7 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
   const createOrgUseCase = makeOrgCreateUseCase()
 
   try {
-    await createOrgUseCase.execute({
+    const org = await createOrgUseCase.execute({
       CEP,
       address,
       email,
@@ -27,6 +27,8 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
       password,
       whatsApp,
     })
+
+    return reply.status(201).send({ org })
   } catch (err) {
     if (err instanceof OrgAlreadyExistsError) {
       return reply.status(400).send({ message: err.message })
@@ -34,6 +36,4 @@ export async function createOrg(request: FastifyRequest, reply: FastifyReply) {
 
     throw err
   }
-
-  return reply.status(201).send()
 }

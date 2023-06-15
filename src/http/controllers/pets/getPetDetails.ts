@@ -7,11 +7,11 @@ export async function getPetDetails(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const getPetDetailsBodySchema = z.object({
-    petId: z.string(),
+  const getPetDetailsParamsSchema = z.object({
+    petId: z.string().uuid(),
   })
 
-  const { petId } = getPetDetailsBodySchema.parse(request.query)
+  const { petId } = getPetDetailsParamsSchema.parse(request.params)
 
   const getPetDetailsUseCase = makeGetPetDetailsUseCase()
 
