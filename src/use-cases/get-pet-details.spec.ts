@@ -22,6 +22,7 @@ describe('Get Pet Details Use Case', () => {
       whatsApp: '0869666666',
       CEP: '64001250',
       city: 'Teresina',
+      uf: 'Piauí',
       email: 'mateus@email.com',
       name: 'Mateus',
       password: '123456',

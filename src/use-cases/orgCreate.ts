@@ -37,11 +37,13 @@ export class CreateOrgUseCase {
     const value = CEP.replace(/[^0-9]+/, '')
     const url = `https://viacep.com.br/ws/${value}/json/`
     let city = ''
+    let uf = ''
 
     await fetch(url)
       .then((response) => response.json())
       .then((json) => {
         city = json.localidade
+        uf = json.uf
       })
 
     const org = await this.orgsRepository.create({
@@ -51,6 +53,7 @@ export class CreateOrgUseCase {
       email,
       name,
       city,
+      uf,
       password: password_hash,
     })
 

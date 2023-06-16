@@ -6,6 +6,7 @@ import { OrgNotFoundError } from './errors/org-not-found-error'
 
 interface GetPetsUseCaseRequest {
   city: string
+  uf: string
   page: number
   age?: string
   size?: string
@@ -26,6 +27,7 @@ export class GetPetsUseCase {
 
   async execute({
     city,
+    uf,
     page,
     size,
     age,
@@ -33,7 +35,7 @@ export class GetPetsUseCase {
     environment,
     independenceLevel,
   }: GetPetsUseCaseRequest): Promise<GetPetsUseCaseResponse> {
-    const orgs = await this.orgsRepository.findOrgByCity(city)
+    const orgs = await this.orgsRepository.findOrgByCity(city, uf)
 
     if (!orgs) {
       throw new OrgNotFoundError()
