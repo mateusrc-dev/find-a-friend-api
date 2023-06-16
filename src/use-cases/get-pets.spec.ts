@@ -15,8 +15,7 @@ describe('Get Pets Use Case', () => {
   })
 
   it('should be able to get pets by city and characteristics', async () => {
-    await orgsRepository.create({
-      id: 'org-1',
+    const createdOrgOne = await orgsRepository.create({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '64001250',
@@ -26,12 +25,11 @@ describe('Get Pets Use Case', () => {
       city: 'Teresina',
     })
 
-    await orgsRepository.create({
-      id: 'org-2',
+    const createdOrgTwo = await orgsRepository.create({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '64001250',
-      email: 'mateus@email.com',
+      email: 'mateusraimundo@email.com',
       name: 'Mateus',
       password: '123456',
       city: 'Fortaleza',
@@ -52,7 +50,7 @@ describe('Get Pets Use Case', () => {
         'tem q ser muito paciente',
         'ele gosta de ambientes muito espaçosos e é muito folgado',
       ],
-      org_id: 'org-1',
+      org_id: createdOrgOne.id,
     })
 
     await petsRepository.create({
@@ -70,7 +68,7 @@ describe('Get Pets Use Case', () => {
         'tem q ser muito paciente',
         'ele gosta de ambientes muito espaçosos e é muito folgado',
       ],
-      org_id: 'org-2',
+      org_id: createdOrgTwo.id,
     })
 
     const { pets } = await sut.execute({
@@ -82,9 +80,8 @@ describe('Get Pets Use Case', () => {
     expect(pets).toEqual([expect.objectContaining({ name: 'Junin' })])
   })
 
-  it('should be able to fetch paginated check-in history', async () => {
-    await orgsRepository.create({
-      id: 'org-1',
+  it('should be able to fetch paginated pets', async () => {
+    const createdOrg = await orgsRepository.create({
       address: 'Rua linda',
       whatsApp: '0869666666',
       CEP: '64001250',
@@ -110,7 +107,7 @@ describe('Get Pets Use Case', () => {
           'tem q ser muito paciente',
           'ele gosta de ambientes muito espaçosos e é muito folgado',
         ],
-        org_id: 'org-1',
+        org_id: createdOrg.id,
       })
     }
 

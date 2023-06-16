@@ -39,8 +39,8 @@ export class GetPetsUseCase {
       throw new OrgNotFoundError()
     }
 
-    let pets: Pet[] = []
-    for (let i = 1; i < orgs.length; i++) {
+    const pets: Pet[] = []
+    for (let i = 0; i < orgs.length; i++) {
       const org_id = orgs[i].id
       const findPets: Pet[] | null =
         await this.petsRepository.filterPetsByOrgIdAndCharacteristics(
@@ -54,7 +54,7 @@ export class GetPetsUseCase {
         )
 
       if (findPets) {
-        pets = [...pets, ...findPets]
+        pets.push(...findPets)
       }
     }
 
