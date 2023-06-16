@@ -15,8 +15,10 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     return org
   }
 
-  async findOrgByCity(city: string) {
-    const orgs = this.items.filter((item) => item.city === city)
+  async findOrgByCity(city: string, uf: string) {
+    const orgs = this.items.filter(
+      (item) => item.city === city && item.uf === uf,
+    )
 
     if (!orgs) {
       return null
@@ -42,6 +44,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
       whatsApp: data.whatsApp,
       CEP: data.CEP,
       city: data.city,
+      uf: data.uf,
       email: data.email,
       name: data.name,
       password: data.password,

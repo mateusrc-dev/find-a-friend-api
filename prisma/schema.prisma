@@ -17,6 +17,7 @@ model Org {
   CEP      String
   address  String
   city     String
+  uf       String
   whatsApp String
   password String
   Pet      Pet[]

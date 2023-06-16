@@ -7,6 +7,7 @@ import { z } from 'zod'
 export async function getPets(request: FastifyRequest, reply: FastifyReply) {
   const getPetsQuerySchema = z.object({
     city: z.string(),
+    uf: z.string(),
     page: z.coerce.number().min(1).default(1),
     age: z.enum(['SMALL', 'AVERAGE', 'BIG', '']).default(''),
     size: z.enum(['SMALL', 'AVERAGE', 'BIG', '']).default(''),
@@ -15,14 +16,23 @@ export async function getPets(request: FastifyRequest, reply: FastifyReply) {
     environment: z.enum(['SMALL', 'AVERAGE', 'WIDE', '']).default(''),
   })
 
-  const { city, page, age, energyLevel, environment, independenceLevel, size } =
-    getPetsQuerySchema.parse(request.query)
+  const {
+    city,
+    uf,
+    page,
+    age,
+    energyLevel,
+    environment,
+    independenceLevel,
+    size,
+  } = getPetsQuerySchema.parse(request.query)
 
   const getPetsUseCase = makeGetPetsUseCase()
 
   try {
     const pets = await getPetsUseCase.execute({
       city,
+      uf,
       page,
       age,
       size,

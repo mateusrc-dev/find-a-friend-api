@@ -23,6 +23,7 @@ describe('Get Pets Use Case', () => {
       name: 'Mateus',
       password: '123456',
       city: 'Teresina',
+      uf: 'Piauí',
     })
 
     const createdOrgTwo = await orgsRepository.create({
@@ -33,6 +34,7 @@ describe('Get Pets Use Case', () => {
       name: 'Mateus',
       password: '123456',
       city: 'Fortaleza',
+      uf: 'Ceará',
     })
 
     await petsRepository.create({
@@ -73,6 +75,7 @@ describe('Get Pets Use Case', () => {
 
     const { pets } = await sut.execute({
       city: 'Teresina',
+      uf: 'Piauí',
       page: 1,
     })
 
@@ -89,6 +92,7 @@ describe('Get Pets Use Case', () => {
       email: 'mateus@email.com',
       name: 'Mateus',
       password: '123456',
+      uf: 'Piauí',
     })
 
     for (let i = 1; i <= 12; i++) {
@@ -113,6 +117,7 @@ describe('Get Pets Use Case', () => {
 
     const { pets } = await sut.execute({
       city: 'Teresina',
+      uf: 'Piauí',
       page: 2,
     })
 

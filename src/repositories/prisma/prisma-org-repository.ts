@@ -23,10 +23,11 @@ export class PrismaOrgsRepository implements OrgsRepository {
     return org
   }
 
-  async findOrgByCity(city: string) {
+  async findOrgByCity(city: string, uf: string) {
     const orgs = await prisma.org.findMany({
       where: {
         city,
+        uf,
       },
     })
 

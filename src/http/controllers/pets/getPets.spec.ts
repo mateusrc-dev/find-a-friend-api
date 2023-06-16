@@ -106,6 +106,7 @@ describe('Get Pets (e2e)', () => {
       .get('/getPets')
       .query({
         city: 'Teresina',
+        uf: 'PI',
       })
       .set('Authorization', `Bearer ${token}`)
       .send()
