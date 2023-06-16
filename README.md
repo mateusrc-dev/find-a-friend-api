@@ -1,4 +1,6 @@
-# Find a Friend API - projeto em produção - desafio que faz parte da trilha NodeJs do Ignite/Rocketseat
+# Find a Friend API - desafio que faz parte da trilha NodeJs do Ignite/Rocketseat - 
+
+## API na qual uma aplicação frontend pode consumir dados de pets de uma determinada região, é possível cadastrar uma organização e criar pets ao estar autenticado como uma organização.
 
 ### Regras da aplicação
 
