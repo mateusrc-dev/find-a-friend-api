@@ -1,5 +1,6 @@
 import { Org, Prisma } from '@prisma/client'
 import { OrgsRepository } from '../orgs-repository'
+import { randomUUID } from 'crypto'
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public items: Org[] = []
@@ -17,7 +18,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
   async findOrgByCity(city: string) {
     const orgs = this.items.filter((item) => item.city === city)
 
-    if (!org) {
+    if (!orgs) {
       return null
     }
 
@@ -36,7 +37,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
 
   async create(data: Prisma.OrgCreateInput) {
     const org = {
-      id: data.id ? data.id : 'org-1',
+      id: data.id ? data.id : randomUUID(),
       address: data.address,
       whatsApp: data.whatsApp,
       CEP: data.CEP,
